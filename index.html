@@ -177,6 +177,14 @@
     ]
   }
   </script>
+
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$','$'], ['\\(','\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
@@ -283,77 +291,86 @@
 </section>
 <!-- End paper abstract -->
 
+<!-- PGF Score Section -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Perfection Gap Factor (PGF) Score</h2>
+        <div class="content has-text-justified">
 
-<!-- Image carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-       <div class="item">
-        <!-- TODO: Replace with your research result images -->
-        <img src="static/images/carousel1.jpg" alt="First research result visualization" loading="lazy"/>
-        <!-- TODO: Replace with description of this result -->
-        <h2 class="subtitle has-text-centered">
-          First image description.
-        </h2>
+          <p>
+            Understanding how finetuning on one task affects performance on another—<strong>task transferability</strong>—is central to analyzing the behavior of Vision-Language Models (VLMs). Traditional transfer metrics often fail to account for how close a target task already is to its ceiling performance: a small improvement near saturation may be far more meaningful than a large improvement on a task with plenty of remaining headroom.
+          </p>
+
+          <p>
+            To address this limitation, we introduce the <strong>Perfection Gap Factor (PGF)</strong>, a normalized measure that captures how much of the <em>remaining</em> performance gap on a target task is closed by finetuning on a source task. PGF enables fair comparison of transfer effects across tasks with different difficulty levels and performance ceilings.
+          </p>
+
+          <p>
+            Consider a VLM <strong>M</strong> finetuned on a source task <strong>T<sub>i</sub></strong> (denoted as <strong>M(T<sub>i</sub>)</strong>) and evaluated on a target task <strong>T<sub>j</sub></strong>, which has an upper-bound or ceiling performance <strong>U<sub>j</sub></strong>. Let <strong>Acc(M, T)</strong> denote the accuracy of model <strong>M</strong> on task <strong>T</strong>.
+          </p>
+
+          <div class="has-text-centered" style="margin: 1.5em 0;">
+            <div class="math" style="display:inline-block;padding:1em;border-radius:8px;">
+              $$\mathrm{PGF}_{i \to j}=\frac{\mathrm{Acc}(M(T_i),\,T_j) - \mathrm{Acc}(M,\,T_j)}{U_j - \mathrm{Acc}(M,\,T_j)}$$
+            </div>
+          </div>
+
+          <p>
+            Here, the numerator measures the change in performance on <strong>T<sub>j</sub></strong> due to finetuning on <strong>T<sub>i</sub></strong>, while the denominator captures the <em>remaining gap</em> to the ceiling <strong>U<sub>j</sub></strong>. A larger gap means more room to improve, while a smaller gap indicates a saturated task where improvements are harder.
+          </p>
+
+          <p>
+            <strong>Interpretation:</strong>  
+            A positive PGF indicates beneficial transfer, and a negative PGF indicates harmful transfer. Values near <strong>1</strong> reflect strong positive transfer (closing most of the remaining gap), while values near <strong>-1</strong> indicate substantial negative transfer. PGF therefore provides a calibrated and comparable view of cross-task influence in VLM finetuning.
+          </p>
+
+        </div>
       </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel2.jpg" alt="Second research result visualization" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-          Second image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel3.jpg" alt="Third research result visualization" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-         Third image description.
-       </h2>
-     </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="static/images/carousel4.jpg" alt="Fourth research result visualization" loading="lazy"/>
-      <h2 class="subtitle has-text-centered">
-        Fourth image description.
-      </h2>
     </div>
   </div>
-</div>
-</div>
 </section>
-<!-- End image carousel -->
+
+<div class="item has-text-centered">
+  <figure class="image" style="margin: 0 auto; max-width: 900px;">
+    <img src="static/images/all_pgf.png" alt="Cross-task transfer heatmaps" loading="lazy" />
+  </figure>
+
+  <h2 class="subtitle has-text-centered" style="max-width: 900px; margin: 1rem auto;">
+    Cross-task transferability across Qwen-2.5-VL models (3B, 7B, 32B): Each heatmap visualizes
+    the Perfection Gap Factor (PGF) between all pairs of source (rows) and target (columns)
+    tasks. Green indicates positive transfer, while red indicates negative transfer.
+  </h2>
+</div>
 
 
 
 
 <!-- Youtube video -->
-<section class="hero is-small is-light">
+<!-- <section class="hero is-small is-light">
   <div class="hero-body">
     <div class="container">
-      <!-- Paper video. -->
       <h2 class="title is-3">Video Presentation</h2>
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
           <div class="publication-video">
-            <!-- Replaced embedded YouTube video with static image -->
             <img src="static/images/presentation_overview.png" alt="Presentation overview figure" loading="lazy">
           </div>
         </div>
       </div>
     </div>
   </div>
-</section>
+</section> -->
 <!-- End youtube video -->
 
 
 <!-- Video carousel -->
-<section class="hero is-small">
+<!-- <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
       <h2 class="title is-3">Another Carousel</h2>
       <div id="results-carousel" class="carousel results-carousel">
-        <!-- Replaced video items with plot images -->
         <div class="item item-plot1">
           <img src="static/images/plot1.png" alt="Plot 1: Transfer graph" loading="lazy">
         </div>
@@ -366,7 +383,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 <!-- End video carousel -->
 
 
@@ -418,24 +435,17 @@
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
-
           <p>
-            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
+            Built using the 
+            <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>,
+            adapted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.  
           </p>
-
         </div>
       </div>
     </div>
   </div>
 </footer>
 
-<!-- Statcounter tracking code -->
-  
-<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
-
-    <!-- End of Statcounter Code -->
 
   </body>
   </html>
