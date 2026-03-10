@@ -100,16 +100,127 @@ body {
 }
 
 .hero-body {
-  padding: 4rem 1.5rem;
+  padding: 2rem 1.5rem;
 }
 
 .teaser .hero-body {
-  padding-top: 2rem;
+  padding-top: 0rem;
   padding-bottom: 4rem;
 }
 
 .teaser {
   font-family: 'Inter', sans-serif;
+}
+
+/* Key Takeaways */
+.takeaways {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.takeaway-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--background-secondary, #f8fafc);
+  border-left: 4px solid #4a6fa5;
+  border-radius: 0 8px 8px 0;
+}
+
+.takeaway-number {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #4a6fa5;
+  color: #fff;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.85rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.takeaway-item p {
+  margin: 0;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* Task Graph Visualization */
+.graph-controls {
+  margin-bottom: 1rem;
+}
+
+.graph-controls-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.graph-control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.graph-control-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.graph-slider {
+  width: 180px;
+  cursor: pointer;
+}
+
+.graph-filter-buttons {
+  margin-bottom: 0 !important;
+}
+
+.graph-filter-btn.is-active {
+  background-color: #4a6fa5 !important;
+  color: #fff !important;
+  border-color: #4a6fa5 !important;
+}
+
+.graph-node-label {
+  font-size: 11px;
+  font-family: 'Inter', sans-serif;
+  fill: var(--text-primary);
+  pointer-events: none;
+  font-weight: 500;
+}
+
+.graph-node circle {
+  cursor: pointer;
+  transition: fill 0.15s;
+}
+
+.graph-link {
+  pointer-events: stroke;
+  cursor: pointer;
+}
+
+.graph-tooltip {
+  display: none;
+  position: fixed;
+  background: rgba(15, 23, 42, 0.92);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  pointer-events: none;
+  z-index: 1000;
+  max-width: 280px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 

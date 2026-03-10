@@ -93,6 +93,8 @@
   <script defer src="static/js/bulma-carousel.min.js"></script>
   <script defer src="static/js/bulma-slider.min.js"></script>
   <script defer src="static/js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script defer src="static/js/task-graph.js"></script>
   
   <!-- Structured Data for Academic Papers -->
   <script type="application/ld+json">
@@ -202,6 +204,7 @@
         <div class="columns is-centered">
           <div class="column has-text-centered">
             <h1 class="title is-1 publication-title">Understanding Task Transfer in Vision-Language Models</h1>
+            <p class="subtitle is-5 publication-venue">CVPR 2026</p>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
                 <a href="https://bhuvan-21.github.io/">Bhuvan Sachdeva</a><sup>*</sup>,</span>
@@ -215,7 +218,7 @@
                   </div>
 
                   <div class="is-size-5 publication-authors">
-                    <span class="author-block">Microsoft Research India<br>2025</span>
+                    <span class="author-block">Microsoft Research India</span>
                     <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
                   </div>
 
@@ -261,14 +264,75 @@
 </section>
 
 <section class="hero teaser">
-  <div class="container is-max-desktop">
+  <div class="container is-max-widescreen">
     <div class="hero-body">
       <!-- Replaced teaser video with image -->
-      <img src="static/images/teaser_figure.png" alt="Teaser overview figure" loading="lazy" class="teaser-image">
+      <img src="static/images/teaser_figure.png" alt="Teaser overview figure" loading="lazy" class="teaser-image" style="width: 100%;">
       <h2 class="subtitle has-text-centered">
         Vision-Language Models (VLMs) are usually finetuned on multiple tasks with little knowledge about how such finetuning affects a model’s performance on other tasks. Hence we aim to explore:
         How does finetuning on one visual perception task affect performance on other tasks?
       </h2>
+    </div>
+  </div>
+</section>
+
+<!-- Key Takeaways -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">TL;DR</h2>
+        <div class="takeaways">
+          <div class="takeaway-item">
+            <span class="takeaway-number">1</span>
+            <p><strong>Low-level tasks transfer best.</strong> Tasks like Relative Depth, Relative Reflectance, and Visual Correspondence are highly positively transferable and malleable. Finetuning on low-level tasks is more beneficial than finetuning on mid- or high-level tasks.</p>
+          </div>
+          <div class="takeaway-item">
+            <span class="takeaway-number">2</span>
+            <p><strong>Scale and granularity matter.</strong> Image-level tasks (Art Style, Counting, Forensic Detection) and pixel-level tasks (Functional Correspondence, Relative Depth) are both highly positively transferable, outperforming patch- and crop-level tasks.</p>
+          </div>
+          <div class="takeaway-item">
+            <span class="takeaway-number">3</span>
+            <p><strong>Bigger models transfer more.</strong> The magnitude of both positive transferability and malleability increases with model size.</p>
+          </div>
+          <div class="takeaway-item">
+            <span class="takeaway-number">4</span>
+            <p><strong>PGF guides data selection.</strong> When supervised data is scarce, PGF-informed data selection can inform alternative dataset designs that match — and even exceed — performance from direct finetuning.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Interactive Task Transfer Graph -->
+<section class="section">
+  <div class="container is-max-widescreen">
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Interactive Task Transfer Graph</h2>
+        <p class="subtitle is-6" style="margin-bottom: 1.5rem;">Qwen-2.5-VL 32B Task Transfer Graph (averaged across seeds). Click a node to highlight its connections and drag a node to rearrange.</p>
+        <div class="graph-controls">
+          <div class="graph-controls-row">
+            <div class="graph-control-group">
+              <label class="graph-control-label">PGF Threshold: <strong id="pgf-threshold-value">0.25</strong></label>
+              <input type="range" id="pgf-threshold" min="0" max="0.7" step="0.01" value="0.25" class="graph-slider">
+            </div>
+            <div class="graph-control-group">
+              <label class="graph-control-label">Filter:</label>
+              <div class="buttons has-addons graph-filter-buttons">
+                <button class="button is-small graph-filter-btn is-active" data-filter="all">All</button>
+                <button class="button is-small graph-filter-btn" data-filter="positive">Positive</button>
+                <button class="button is-small graph-filter-btn" data-filter="negative">Negative</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="task-graph-container" style="position:relative;width:100%;border:1px solid #e2e8f0;border-radius:12px;background:#fafbfc;overflow:hidden;">
+          <svg id="task-graph-svg"></svg>
+          <div id="task-graph-tooltip" class="graph-tooltip"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
