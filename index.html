@@ -95,6 +95,7 @@
   <script defer src="static/js/index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script defer src="static/js/task-graph.js"></script>
+  <script defer src="static/js/heatmap.js"></script>
   
   <!-- Structured Data for Academic Papers -->
   <script type="application/ld+json">
@@ -281,7 +282,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3 has-text-centered">TL;DR</h2>
+        <h2 class="title is-3 has-text-centered">Key Findings</h2>
         <div class="takeaways">
           <div class="takeaway-item">
             <span class="takeaway-number">1</span>
@@ -311,7 +312,7 @@
     <div class="columns is-centered has-text-centered">
       <div class="column">
         <h2 class="title is-3">Interactive Task Transfer Graph</h2>
-        <p class="subtitle is-6" style="margin-bottom: 1.5rem;">Qwen-2.5-VL 32B Task Transfer Graph (averaged across seeds). Click a node to highlight its connections and drag a node to rearrange.</p>
+        <p class="subtitle is-6" style="margin-bottom: 1.5rem;">Qwen-2.5-VL 32B Task Transfer Graph (averaged across seeds). Click a node to highlight its connections and drag a node to rearrange. The color intensity of the edge defines how strong the transfer is between the two tasks.</p>
         <div class="graph-controls">
           <div class="graph-controls-row">
             <div class="graph-control-group">
@@ -338,21 +339,21 @@
 </section>
 
 <!-- Paper abstract -->
-<section class="section hero is-light">
+<!-- <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
+        <div class="content has-text-justified"> -->
           <!-- TODO: Replace with your paper abstract -->
-          <p>
+          <!-- <p>
             Vision-Language Models (VLMs) perform well on multimodal benchmarks but lag behind humans and specialized models on visual perception tasks like depth estimation or object counting. Finetuning on one task can unpredictably affect performance on others, making task-specific finetuning challenging. In this paper, we address this challenge through a systematic study of task transferability. We examine how finetuning a VLM on one perception task affects its zero-shot performance on others. To quantify these effects, we introduce Perfection Gap Factor (PGF), a metric that captures both the breadth and magnitude of transfer. Using three open-weight VLMs evaluated across 13 perception tasks, we construct a task-transfer graph that reveals previously unobserved relationships among perception tasks. Our analysis uncovers patterns of positive and negative transfer, identifies groups of tasks that mutually influence each other, organizes tasks into personas based on their transfer behavior, and demonstrates how PGF can guide data selection for more efficient training. These findings highlight both opportunities for positive transfer and risks of negative interference, offering actionable guidance for advancing VLMs.
           </p>
         </div>
       </div>
     </div>
   </div>
-</section>
+</section> -->
 <!-- End paper abstract -->
 
 <!-- PGF Score Section -->
@@ -396,17 +397,34 @@
   </div>
 </section>
 
-<div class="item has-text-centered">
-  <figure class="image" style="margin: 0 auto; max-width: 900px;">
-    <img src="static/images/all_pgf.png" alt="Cross-task transfer heatmaps" loading="lazy" />
-  </figure>
-
-  <h2 class="subtitle has-text-centered" style="max-width: 900px; margin: 1rem auto;">
-    Cross-task transferability across Qwen-2.5-VL models (3B, 7B, 32B): Each heatmap visualizes
-    the Perfection Gap Factor (PGF) between all pairs of source (rows) and target (columns)
-    tasks. Green indicates positive transfer, while red indicates negative transfer.
-  </h2>
-</div>
+<section class="section">
+  <div class="container is-max-widescreen">
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Task Transfer Heatmaps</h2>
+        <p class="subtitle is-6" style="margin-bottom: 1rem;">Perfection Gap Factor (PGF) between all pairs of source (rows) and target (columns) tasks. Hover over a cell for details.</p>
+        <div class="heatmap-model-toggle">
+          <div class="buttons has-addons is-centered">
+            <button class="button heatmap-model-btn" data-model="3B">Qwen-2.5-VL 3B</button>
+            <button class="button heatmap-model-btn" data-model="7B">Qwen-2.5-VL 7B</button>
+            <button class="button heatmap-model-btn is-active" data-model="32B">Qwen-2.5-VL 32B</button>
+          </div>
+        </div>
+        <div id="heatmap-container" style="position:relative;width:100%;overflow-x:auto;">
+          <svg id="heatmap-svg" style="display:block;margin:0 auto;"></svg>
+          <div id="heatmap-tooltip" class="graph-tooltip"></div>
+        </div>
+        <div class="heatmap-legend has-text-centered" style="margin-top:0.75rem;">
+          <span style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.85rem;color:#6b7280;">
+            <span style="display:inline-block;width:14px;height:14px;background:#d73027;border-radius:2px;"></span> Negative transfer
+            <span style="display:inline-block;width:14px;height:14px;background:#ffffbf;border-radius:2px;margin-left:0.5rem;"></span> Neutral
+            <span style="display:inline-block;width:14px;height:14px;background:#1a9850;border-radius:2px;margin-left:0.5rem;"></span> Positive transfer
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 

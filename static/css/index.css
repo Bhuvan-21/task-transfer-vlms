@@ -223,6 +223,17 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
+/* Heatmap */
+.heatmap-model-toggle {
+  margin-bottom: 1rem;
+}
+
+.heatmap-model-btn.is-active {
+  background-color: #4a6fa5 !important;
+  color: #fff !important;
+  border-color: #4a6fa5 !important;
+}
+
 
 /* Publication Content Styling */
 .publication-title {

@@ -1,9 +1,9 @@
 (function() {
   const TASKS = [
-    "Art_Style", "Counting", "Forensic_Detection", "Functional_Correspondence",
-    "Jigsaw", "Multi-view_Reasoning", "Object_Localization", "Relative_Depth",
-    "Relative_Reflectance", "Semantic_Correspondence", "Spatial_Relation",
-    "Visual_Correspondence", "Visual_Similarity"
+    "Visual_Similarity", "Art_Style", "Visual_Correspondence", "Relative_Depth",
+    "Relative_Reflectance", "Spatial_Relation", "Jigsaw", "Counting",
+    "Functional_Correspondence", "Semantic_Correspondence", "Multi-view_Reasoning",
+    "Object_Localization", "Forensic_Detection"
   ];
 
   const EDGES = [
